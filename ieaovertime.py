@@ -67,7 +67,7 @@ for j in lvFcsts['RPT'].unique():
                            'Value': lvHist[(lvHist['fcstYear']==j)]['Value'], 
                            'RPT': j})
     lvFcsts = pd.concat([lvFcsts, newRow], ignore_index=True)
-lvAll = pd.concat([lvFcsts, lvHist])
+lvAll = pd.concat([lvFcsts, lvHist]).sort_values(by=['fcstYear'])
 plt = px.line(lvAll, x='fcstYear', y='Value', color='RPT')
 
 #make a year range
