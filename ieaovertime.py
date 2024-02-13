@@ -21,7 +21,7 @@ enMap = {'Coal': {'hist': ['coalcons_ej'],
                     'fcst': ['Coal', 'Oil', 'Natural Gas',
                              'Nuclear', 'Bioenergy', 'Hydro']}}
 
-plMap = {'Current Policies': ['Current Policies Secnario', 
+plMap = {'Current Policies': ['Current Policies Scenario', 
                                'Stated Policies Scenario'],
           'New Policies': ['New Policies Scenario', 
                            'Announced Pledges Scenario'],
@@ -45,11 +45,22 @@ hists = hists[(hists['Country']=='Total World') &
 enList = list(enMap.keys())
 scList = list(plMap.keys())
 
+
 st.write("TEST")
 en = st.selectbox(label="Choose an energy source to evaluate:", 
                   options=enList)
 sc = st.selectbox(label='Choose a set of policy scenarios to evaluate:',
                   options=scList)
+
+# create a list for the selected items
+lvFcsts = fcsts[(fcsts['scen'].isin(plMap[sc])) & (fcsts['Source'].isin(enMap[en]['fcst']))]
+lvFcsts = lvFcsts[['fcstYear', 'Value', 'RPT']]
+lvHist = hists[hists['Var'].isin(enMap[en]['hist'])]
+lvHist['RPT'] = 'History'
+lvHist.rename(columns={'Year': 'fcstYear'}, inplace=True)
+lvHist = lvHist[['fcstYear', 'Value', 'RPT']]
+lvAll = pd.concat([lvFcsts, lvHist])
+plt = px.scatter(lvAll, x='fcstYear', y='Value', color='RPT')
 
 #make a year range
 yMin = min(min(fcsts['fcstYear']), min(hists['Year']))
@@ -60,7 +71,9 @@ fcstYMin = min(fcsts['RPT'])
 fcstYMax = max(fcsts['RPT'])
 
 
-plt = px.line(hists, x='Year', y='Value', color='Var', animation_frame='Year')
+
+
+# plt = px.line(hists, x='Year', y='Value', color='Var', animation_frame='Year')
 
 
 st.plotly_chart(plt)
