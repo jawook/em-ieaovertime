@@ -24,7 +24,7 @@ hists = hists[(hists['Country']=='Total World') &
               (hists['Year'] >= 2000) & 
               (hists['Var'].isin(allHistSer))]
 
-plt = px.line(hists, x='Year', y='Value', animation_frame='Year')
+plt = px.line(hists, x='Year', y='Value', color='Var', animation_frame='Year')
 
 st.write("TEST")
 st.plotly_chart(plt)
