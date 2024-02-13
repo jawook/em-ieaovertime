@@ -55,6 +55,7 @@ sc = st.selectbox(label='Choose a set of policy scenarios to evaluate:',
 # create a list for the selected items
 lvFcsts = fcsts[(fcsts['scen'].isin(plMap[sc])) & (fcsts['Source'].isin(enMap[en]['fcst']))]
 lvFcsts = lvFcsts[['fcstYear', 'Value', 'RPT']]
+lvFcsts['Value'] = lvFcsts['Value'] * 23.88
 lvHist = hists[hists['Var'].isin(enMap[en]['hist'])]
 lvHist['RPT'] = 'History'
 lvHist.rename(columns={'Year': 'fcstYear'}, inplace=True)
