@@ -57,15 +57,16 @@ lvFcsts = fcsts[(fcsts['scen'].isin(plMap[sc])) & (fcsts['Source'].isin(enMap[en
 lvFcsts = lvFcsts[['fcstYear', 'Value', 'RPT']]
 lvHist = hists[hists['Var'].isin(enMap[en]['hist'])]
 lvHist['RPT'] = 'History'
-lvHist.rename(columns={'Year': 'fcstYear'}, inplace=True)
+lvHist = lvHist.rename(columns={'Year': 'fcstYear'})
 lvHist = lvHist[['fcstYear', 'Value', 'RPT']]
 lvHist['Value'] = lvHist['Value'] * 23.88
 # connect fcst to the hist
 for j in lvFcsts['RPT'].unique():
     if j == 'History': continue
-    newRow = {'fcstYear': j, 
-              'Value': lvHist[(lvHist['fcstYear']==j)]['Value'], 
-              'RPT': j}
+    newRow = pd.DataFrame({'fcstYear': j, 
+                           'Value': lvHist[(lvHist['fcstYear']==j)]['Value'], 
+                           'RPT': j})
+    lvFcsts = pd.concat([lvFcsts, newRow], ignore_index=True)
 lvAll = pd.concat([lvFcsts, lvHist])
 plt = px.line(lvAll, x='fcstYear', y='Value', color='RPT')
 
