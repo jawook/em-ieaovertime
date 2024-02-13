@@ -21,11 +21,11 @@ enMap = {'Coal': {'hist': ['coalcons_ej'],
                     'fcst': ['Coal', 'Oil', 'Natural Gas',
                              'Nuclear', 'Bioenergy', 'Hydro']}}
 
-plMap = {'Current Policies': ['Current Policies Scenario'],
-          'New Policies': ['New Policies Scenario',
-                           'Stated Policies Scenario',
-                           'Announced Pledges Scenario'],
-          'Aspirational Policies': ['450 Scenario', 
+plMap = {'Legislated Policies': ['Current Policies Scenario'],
+         'New Policies': ['New Policies Scenario',
+                          'Stated Policies Scenario']
+         'Policy Targets': ['Announced Pledges Scenario'],
+         'Aspirational Policies': ['450 Scenario', 
                                     'Sustainable Development Scenario',
                                     'Net Zero 2050 Scenario']}
 
