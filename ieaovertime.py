@@ -40,8 +40,8 @@ for j in enMap:
 hists = hists[(hists['Country']=='Total World') & 
               (hists['Year'] >= 2010) & 
               (hists['Var'].isin(allHistSer))]
-
-#make a list of energy sources
+    
+#mak5e a list of energy sources
 enList = list(enMap.keys())
 scList = list(plMap.keys())
 
@@ -60,6 +60,12 @@ lvHist['RPT'] = 'History'
 lvHist.rename(columns={'Year': 'fcstYear'}, inplace=True)
 lvHist = lvHist[['fcstYear', 'Value', 'RPT']]
 lvHist['Value'] = lvHist['Value'] * 23.88
+# connect fcst to the hist
+for j in lvFcsts['RPT'].unique():
+    if j == 'History': continue
+    newRow = {'fcstYear': j, 
+              'Value': lvHist[(lvHist['fcstYear']==j)]['Value'], 
+              'RPT': j}
 lvAll = pd.concat([lvFcsts, lvHist])
 plt = px.line(lvAll, x='fcstYear', y='Value', color='RPT')
 
