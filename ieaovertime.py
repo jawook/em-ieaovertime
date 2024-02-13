@@ -61,7 +61,7 @@ lvHist.rename(columns={'Year': 'fcstYear'}, inplace=True)
 lvHist = lvHist[['fcstYear', 'Value', 'RPT']]
 lvHist['Value'] = lvHist['Value'] * 23.88
 lvAll = pd.concat([lvFcsts, lvHist])
-plt = px.scatter(lvAll, x='fcstYear', y='Value', color='RPT')
+plt = px.scatter(lvAll, x='fcstYear', y='Value', color='RPT', symbol='line')
 
 #make a year range
 yMin = min(min(fcsts['fcstYear']), min(hists['Year']))
